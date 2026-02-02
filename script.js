@@ -1,13 +1,34 @@
 /*** 
-    yha ham log details me ek bank ka example leke work karenge jaise deposite karna, withdraw, balance check karna
-    
-    reducer method (bankReducer) me state aur action pass kiya ja rha hai action me hame kis type ka action hai use 
-    bhi pass karte hai mean kya use withdraw karna chahta hai ya balance inquery karna chahta hai ya paise ko deposite
-    karna chahta hai
+    ab ham parcel ko install karenge aur redux ko parcel ke throw run karenge usase pahle parcel hai kya ?
 
-    jab ham paise lene ya dene ki bat kar rhe hai tab ham action ko batana bhi pade ga jise ham payload ke jariye batate hai
+    parcel :- Parcel = Bundler
+
+    Parcel ek zero-config bundler hai jo modern JS, CSS, assets ko process karke browser-ready bundle banata hai.
+
+    Agar tum modern JavaScript likhte ho jaise:
+
+    import { createStore } from "redux";
+    import "./style.css";
+    import logo from "./logo.png";
+
+    ❌ Browser directly samajh nahi pata ye sab.
+
+    Parcel karta kya hai: 
+    - ES Modules -Convert karke browser-compatible banata hai
+    - Multiple JS files	ko Ek bundle file bana deta hai
+    - CSS import :	CSS ko JS se link kar deta
+    - Images/fonts :Optimize karke include karta
+    - Dev server : Local server chala deta (auto refresh)
+
+  install parcel : npm install parcel --save-dev
+  install redux : npm install redux
+
+jab aap redux ko import karte ho to html me jha script src likh rhe ho usi ke side me type="module" likhana padta hai
+agar aap nhi likhate hai to error aayega.
 
  */
+
+import { createStore } from "redux";
 
 let initialState = {
   balance: 0,
@@ -15,9 +36,11 @@ let initialState = {
   age: 28,
 };
 
-console.log("current state is : ", initialState);
+//yha function ka name kuch bhi rakh sakte like reducer, reducerBank , abc , reducerABC.
 
-function bankReducer(state, action) {
+function reducer(state = initialState, action) {
+  // agar ham function reducer(state, action ) me state me intialState nhi pass karenge to undefined aayega jab bhi
+  // state ko get karne ki kosis karenge ex console.log("abc :", store.getState()); // undefined aayega
   if (action.type === "bank/deposite") {
     return { ...state, balance: state.balance + action.payload };
   } else if (action.type === "bank/withdraw") {
@@ -27,22 +50,15 @@ function bankReducer(state, action) {
   return state;
 }
 
-initialState = bankReducer(initialState, {
-  type: "bank/deposite",
-  payload: 1000,
-});
-console.log("after deposit money : ", initialState);
+// createStore me hamne reducer function pass kiya to vo bhi hame kuch return karega use ham kisi bhi name ke
+// variable me store kra sakte hai normally variable ka name store rakhte hai aap chahe abc bhi likh sakte hai
 
-initialState = bankReducer(initialState, {
-  type: "bank/deposite",
-  payload: 1000,
-});
-console.log("after deposit money : ", initialState);
+//const abc = createStore(bankReducer);
 
-initialState = bankReducer(initialState, {
-  type: "bank/withdraw",
-  payload: 500,
-});
-console.log("after withdraw money : ", initialState);
+const store = createStore(reducer);
+console.log("store :", store);
 
-console.log("total balance : ", initialState.balance);
+// store ko console karane pr hame return me mila :observable, dispatch, getState, replaceReducer, subscribe
+// jisme kam ka hamare dispatch, getState, subscribe hi hai filhal ke liye
+
+console.log("current state :", store.getState()); // yha sara state mil jayega agar hamne reducer me pass kiya hoga to
