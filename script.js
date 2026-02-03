@@ -1,4 +1,4 @@
-//using switch case
+//ham yha redux tool ka use kar rhe hai jab browser extension se redux tool ko download karte hai to
 
 import { createStore } from "redux";
 
@@ -12,13 +12,6 @@ const DEPOSITE = "bank/deposite";
 const WITHDRAW = "bank/withdraw";
 
 function reducer(state = initialState, action) {
-  /**if (action.type === DEPOSITE) {
-    return { ...state, balance: state.balance + action.payload };
-  } else if (action.type === WITHDRAW) {
-    return { ...state, balance: state.balance - action.payload };
-  }
-  return state; */
-
   switch (action.type) {
     case DEPOSITE:
       return { ...state, balance: state.balance + action.payload };
@@ -29,7 +22,7 @@ function reducer(state = initialState, action) {
   }
 }
 
-const store = createStore(reducer);
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
 console.log("store :", store);
 
 store.subscribe(() => {

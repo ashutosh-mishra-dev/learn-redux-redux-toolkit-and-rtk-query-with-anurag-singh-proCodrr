@@ -1,0 +1,17 @@
+🎯 Redux DevTools Kya Hai?
+
+Redux DevTools ek browser extension hai jo Redux debugging ko asaan banata hai. Yeh aapko dikhata hai:
+✅ Kab action dispatch hua
+✅ State kaise change hua
+✅ Time-travel debugging
+✅ Performance metrics
+
+Download/Install Kare: Chrome Web Store par jaayein->Search karein: "Redux DevTools"->Add to Chrome" button dabayein
+
+ab devtools se milta h ek function __REDUX_DEVTOOLS_EXTENSION__ ese ham store() me second argument ke roop me pass 
+kar denge to hamare browser se attached ho jayega.
+
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
+
+aapne dekha ki hamne yha method chaining ka use kiya hai ?. jiska matlab hai ki jis browser me agar redux tool kit 
+install na ho vha error na aaye agar ham ese nhi lagate to error aata h
