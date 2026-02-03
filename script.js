@@ -1,7 +1,4 @@
-/** yha hamne action type ke value ko ek variable me store kar diya jise bad me
- * reducer function aur dispatch me same variable name ke hisab se use kar liya
- * variable ko CAPITAL letter me hi likhate hai aisa jaruri nhi but likhana chahiye
- *  */
+//using switch case
 
 import { createStore } from "redux";
 
@@ -15,12 +12,21 @@ const DEPOSITE = "bank/deposite";
 const WITHDRAW = "bank/withdraw";
 
 function reducer(state = initialState, action) {
-  if (action.type === DEPOSITE) {
+  /**if (action.type === DEPOSITE) {
     return { ...state, balance: state.balance + action.payload };
   } else if (action.type === WITHDRAW) {
     return { ...state, balance: state.balance - action.payload };
   }
-  return state;
+  return state; */
+
+  switch (action.type) {
+    case DEPOSITE:
+      return { ...state, balance: state.balance + action.payload };
+    case WITHDRAW:
+      return { ...state, balance: state.balance - action.payload };
+    default:
+      return state;
+  }
 }
 
 const store = createStore(reducer);
